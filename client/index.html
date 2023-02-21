@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet'>  
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lab 9</title>
+    <style>
+        *{
+            margin: 0px;            
+            padding: 0px;
+            box-sizing: border-box;
+            overflow-x: hidden;
+        }
+
+        #container{
+            width: 100vw;
+            padding: 5px;
+            height: fit-content;
+            background: rgb(34,193,195);
+            background: radial-gradient(circle, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+        }
+
+        input{
+            background: transparent;
+            border: 3px dotted black;
+            height: 5vh;
+            width: 20vw;
+            font-size: larger;
+            font-weight: bolder;
+        }
+
+        input:active, input:hover, input:focus{
+            box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.2);
+        }
+
+        ul{
+            width: 100%;
+            display: flex;
+            gap: 10px;
+        }
+
+        .sec-1{
+            display: flex;
+            justify-content: space-around;
+            height: 55vh;
+        }
+
+        .sec-2{
+            display: flex;
+            justify-content: space-around;
+            height: 32vh;
+        }
+
+        .sec-3{
+            display: flex;
+            justify-content: space-around;
+            height: 50vh;
+        }
+
+        #sec-4{
+            /* display: flex;
+            justify-content: space-around; */
+            align-items: center;
+            height: fit-content;
+            width: 100vw;
+            font-size: larger;
+            font-weight: bolder;
+            /* gap: 10px; */
+        }
+
+        .getall{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .clear{
+            float: inline-end;
+            margin-right: 100px;
+        }
+
+        button {
+        background-color: transparent;
+        border: 3px solid #222222;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: #222222;
+        cursor: pointer;
+        display: inline-block;
+        font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif;
+        font-size: 16px;
+        font-weight: 600;
+        line-height: 20px;
+        margin: 0;
+        outline: none;
+        padding: 13px 23px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        touch-action: manipulation;
+        transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s;
+        user-select: none;
+        -webkit-user-select: none;
+        width: auto;
+        }
+
+        button:focus-visible {
+        box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px;
+        transition: box-shadow .2s;
+        }
+
+        button:active {
+        background-color: #F7F7F7;
+        border-color: #000000;
+        transform: scale(.96);
+        }
+
+        button:disabled {
+        border-color: #DDDDDD;
+        color: #DDDDDD;
+        cursor: not-allowed;
+        opacity: 1;
+        }
+
+        button:hover {
+            background: radial-gradient(circle, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+            box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+        }
+
+        h1, h3, h2, li{
+            font-family: 'Roboto Slab', serif;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="container">
+        <h1><center>CRUD APPLICATION</center></h1><br>
+        <div class="sec-1">
+            <div class="create">
+                <h1>Create Student record</h1><br>
+                <label><h3>Enter the name of student!</h3></label>
+                <input type="text" id="name3"><br>
+                <label><h3>Enter the surname of student!</h3></label>
+                <input type="text" id="surname"><br>
+                <label><h3>Enter the contact of student!</h3></label>
+                <input type="text" id="contact"><br>
+                <label><h3>Enter the department of student!</h3></label>
+                <input type="text" id="dept"><br>
+                <br><button onclick="create()">Create record</button>
+            </div>
+            <div class="getall">
+                <h1>All Students' records</h1>
+                <button onclick="fetchall()">Fetch all records</button>
+            </div>
+        </div>
+        <div class="sec-2">
+            <div class="getsingle">
+                <h1>Get Student record</h1><br>
+                <label><h3>Enter the name of student to fetch records!</h3></label>
+                <input type="text" id="name"><br>
+                <br><button onclick="fetchsingle()">Get record</button>
+            </div>
+            <div class="deleteone">
+                <h1>Delete Student record</h1><br>
+                <label><h3>Enter the name of student to delete record!</h3></label>
+                <input type="text" id="name1"><br>
+                <br><button onclick="deleteone()">Delete</button>
+            </div>
+        </div>
+        <div class="sec-3">
+            <div class="deleteall">
+                <h1>Delete all records</h1><br>
+                <button onclick="deleteall()">Delete All</button>
+            </div>
+            <div class="update">
+                <h1>Update Student record</h1><br>
+                <label><h3>Enter the name of student to update record!</h3></label>
+                <input type="text" id="name2"><br>
+                <label><h3>Enter the field to update!</h3></label>
+                <input type="text" id="field"><br>
+                <label><h3>Enter the replacement value for the field!</h3></label>
+                <input type="text" id="value"><br>
+                <br><button onclick="update()">Update record</button>
+            </div>
+        </div>
+        <br><center><h2>Output Section</h2></center><br>
+        <div class="clear"><button onclick="blank()">Clear</button></div>
+        <div id="sec-4"></div>
+    </div>
+</body>
+<script src="./script.js"></script>
+</html>
